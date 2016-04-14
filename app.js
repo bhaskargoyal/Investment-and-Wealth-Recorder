@@ -18,9 +18,10 @@ var MongoStore = require('connect-mongo/es5')(session);
 dotenv.load({path: '.env'});
 
 /*
-* COntrollers (Route Handlers)
+* Controllers (Route Handlers)
 */
 var homeController = require('./controllers/home');
+var userController = require('./controllers/users');
 
 /*
 * Create Express Server
