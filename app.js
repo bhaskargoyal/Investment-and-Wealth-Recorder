@@ -6,11 +6,21 @@ var express = require('express');
 var mongoose = require('mongoose');
 var errorHandler = require('errorhandler');
 var dotenv = require('dotenv');
+var path = require('path');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var MongoStore = require('connect-mongo/es5')(session);
 
 /*
 * Load Environment Variables from .env file (configuration file)
 */
 dotenv.load({path: '.env'});
+
+/*
+* COntrollers (Route Handlers)
+*/
+var homeController = require('./controllers/home');
 
 /*
 * Create Express Server
@@ -30,13 +40,36 @@ mongoose.connection.on('error', function(err) {
 * Express Configuration
 */
 app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(session({
+	secret: process.env.SESSION_SECRET,
+	resave: true,
+	saveUninitialized: true,
+	store: new MongoStore({
+		url: process.env.MONGOLAB_URI,
+		autoReconnect: true
+	})
+}));
+app.use(express.static(path.join(__dirname, 'public')));
+
+/*
+* Console Routes for debugging
+*/
+app.all('*', function(req, res, next) {
+	if(app.get('env') == 'development' && !req.path.includes('/js/') && !req.path.includes('/css/'))
+		console.log(req.method + ' request for ' + req.path);
+	next();
+});
+
 
 /*
 * Primary App Routes
 */
-app.get('/', function(req, res) {
-	res.send('hello23');
-});
+app.get('/', homeController.home);
 
 /*
 * Error Handler
