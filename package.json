@@ -1,0 +1,27 @@
+{
+  "name": "investment-and-wealth-recorder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhaskargoyal/Investment-and-Wealth-Recorder.git"
+  },
+  "keywords": [
+    "investment",
+    "wealth"
+  ],
+  "author": "Bhaskar Goyal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bhaskargoyal/Investment-and-Wealth-Recorder/issues"
+  },
+  "homepage": "https://github.com/bhaskargoyal/Investment-and-Wealth-Recorder#readme"
+}
