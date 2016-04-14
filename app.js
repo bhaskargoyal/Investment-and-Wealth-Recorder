@@ -1,29 +1,53 @@
+/*
+* Module Dependencies
+*/
 var http = require('http');
 var express = require('express');
 var mongoose = require('mongoose');
-var db_details = require('./config/dbdetails.js');
+var errorHandler = require('errorhandler');
+var dotenv = require('dotenv');
 
+/*
+* Load Environment Variables from .env file (configuration file)
+*/
+dotenv.load({path: '.env'});
+
+/*
+* Create Express Server
+*/
 var app = express();
 
-
-mongoose.connect('mongodb://'+db_details.DB_USER+':'+db_details.DB_PASSWORD+'@'+db_details.DB_NAME+'.mlab.com:23490/investment-and-wealth-recorder');
-
-var Cat = mongoose.model('Cat', { name: String });
-
-var kitty = new Cat({ name: 'Zildjian' });
-kitty.save(function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('meow');
-  }
+/*
+* Connect To MongoLab Database
+*/
+mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connection.on('error', function(err) {
+	console.log('MongDB not responding, please make sure MongoDB is running.');
+	process.exit(1);
 });
 
+/*
+* Express Configuration
+*/
+app.set('port', process.env.PORT || 3000);
 
+/*
+* Primary App Routes
+*/
 app.get('/', function(req, res) {
-	res.send("Hello yo");
+	res.send('hello23');
 });
-var port = process.env.PORT || 3000;
-app.listen(port);
 
-console.log("Server running on port "+ port);
+/*
+* Error Handler
+*/
+app.use(errorHandler());
+
+/*
+* Start Express Server
+*/
+app.listen(app.get('port'), function() {
+	console.log('Server listening on port %d in %s mode', app.get('port'), app.get('env'));
+});
+
+module.exports = app;
