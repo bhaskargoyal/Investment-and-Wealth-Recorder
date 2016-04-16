@@ -10,6 +10,7 @@ var path = require('path');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var sass = require('node-sass-middleware');
 var MongoStore = require('connect-mongo/es5')(session);
 
 /*
@@ -22,6 +23,7 @@ dotenv.load({path: '.env'});
 */
 var homeController = require('./controllers/home');
 var userController = require('./controllers/users');
+var accountController = require('./controllers/account');
 
 /*
 * Create Express Server
@@ -46,6 +48,11 @@ app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(sass({
+	src: path.join(__dirname, 'public'),
+	dest: path.join(__dirname, 'public'),
+	sourceMap: true
+}));
 app.use(session({
 	secret: process.env.SESSION_SECRET,
 	resave: true,
@@ -60,7 +67,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*
 * Console Routes for debugging
 */
-app.all('*', function(req, res, next) {
+app.all('/*', function(req, res, next) {
+	res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
 	if(app.get('env') == 'development' && !req.path.includes('/js/') && !req.path.includes('/css/'))
 		console.log(req.method + ' request for ' + req.path);
 	next();
@@ -71,6 +79,10 @@ app.all('*', function(req, res, next) {
 * Primary App Routes
 */
 app.get('/', homeController.home);
+app.get('/login', userController.getLogin);
+app.post('/login', userController.postLogin);
+app.get('/logout', userController.getLogout);
+app.get('/account', accountController.getAccount);
 
 /*
 * Error Handler

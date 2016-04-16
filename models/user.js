@@ -25,7 +25,7 @@ var userSchema = mongoose.Schema({
 		unique: true
 	}
 });
-
-var User = mongoose.model('user', userSchema);
+// third argument for the collection name that is to be used.
+var User = mongoose.model('user', userSchema, 'user');
 
 exports.User = User;

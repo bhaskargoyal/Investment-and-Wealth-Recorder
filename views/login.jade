@@ -1,0 +1,28 @@
+extends layout
+
+block content
+	center
+		h1 Investment And Weath Recorder
+	.space
+	.space
+	.row
+		.col-sm-8.col-sm-offset-2
+			form(role='form', action='/login', method='post')
+				.form-group
+					label(for='email') Username
+					input.form-control#email(name='username', type='email', placeholder='Enter Email', required)
+				.form-group
+					label(for='password') Password
+					input.form-control#password(name='password', type='password', placeholder='Enter Password', required)
+				.form-group
+					center
+						label #{status}
+				center
+					button.btn.btn-primary(type='submit') Login »
+	.space
+	center
+		.row
+			.col-sm-8.col-sm-offset-2
+				h5 Not Registered?
+				a.btn.btn-default(href='/login', role='button') Sign Up »
+			
