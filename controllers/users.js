@@ -51,6 +51,15 @@ exports.postLogin = function(req, res) {
 
 
 /*
+* Get request for '/signup'
+*/
+exports.getSignUp = function(req, res) {
+	res.render('signup');
+}
+
+
+
+/*
 * Get request for '/logout'
 */
 exports.getLogout = function(req, res) {

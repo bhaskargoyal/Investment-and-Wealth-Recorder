@@ -7,7 +7,7 @@ block content
 	.space
 	.row
 		.col-sm-8.col-sm-offset-2
-			form(role='form', action='/login', method='post')
+			form(role='form', action='/signup', method='post')
 				.form-group
 					label(for='email') Username
 					input.form-control#email(name='username', type='email', placeholder='Enter Email', required)
@@ -18,11 +18,11 @@ block content
 					center
 						label #{status}
 				center
-					button.btn.btn-primary(type='submit') Login »
+					button.btn.btn-primary(type='submit') Sign Up »
 	.space
 	center
 		.row
 			.col-sm-8.col-sm-offset-2
-				h5 Not Registered?
-				a.btn.btn-default(href='/signup', role='button') Sign Up »
+				h5 Already a User?
+				a.btn.btn-default(href='/login', role='button') Sign In »
 			
