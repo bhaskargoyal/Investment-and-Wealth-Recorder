@@ -9,8 +9,15 @@ block content
 		.col-sm-8.col-sm-offset-2
 			form(role='form', action='/signup', method='post')
 				.form-group
-					label(for='email') Username
-					input.form-control#email(name='username', type='email', placeholder='Enter Email', required)
+					label(for='firstname') First Name
+					input.form-control#email(name='firstname', type='email', placeholder='Enter Email', required)
+				.form-group
+					label(for='middlename') Middle Name
+					input.form-control#email(name='middlename', type='email', placeholder='Enter Email')
+				.form-group
+					label(for='lastname') Last name
+					input.form-control#email(name='lastname', type='email', placeholder='Enter Email', required)
+
 				.form-group
 					label(for='password') Password
 					input.form-control#password(name='password', type='password', placeholder='Enter Password', required)

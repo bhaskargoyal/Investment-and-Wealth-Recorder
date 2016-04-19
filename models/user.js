@@ -7,6 +7,11 @@ var userSchema = mongoose.Schema({
 		trim: true,
 		lowercase: true
 	},
+	middlename: {
+		type: String,
+		trim: true,
+		lowercase: true
+	},
 	lastname: {
 		type: String,
 		required: true,
@@ -18,6 +23,10 @@ var userSchema = mongoose.Schema({
 		required: true,
 		min: [18, 'Minimum Age must be greater than equal to 18'],
 		max: [120, 'Maximum Age must be less than equal to 120']
+	},
+	dob: {
+		type: Date(),
+		required: true
 	},
 	username: {
 		type: ObjectId,
