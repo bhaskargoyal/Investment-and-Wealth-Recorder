@@ -75,6 +75,7 @@ app.all('/*', function(req, res, next) {
 });
 
 
+
 /*
 * Primary App Routes
 */
@@ -82,9 +83,15 @@ app.get('/', homeController.home);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.getLogout);
+app.get('/signup', userController.getSignUp);
+
+
+/*
+* App Routes for account pages
+*/
 app.get('/account', accountController.getAccount);
 app.post('/account', accountController.postAccount);
-app.get('/signup', userController.getSignUp);
+
 
 /*
 * Error Handler
