@@ -66,3 +66,12 @@ exports.getLogout = function(req, res) {
 	req.session.destroy();
 	res.render('home');
 }
+
+
+/*
+* Get request for '/create'
+*/
+exports.getLogout = function(req, res) {
+	
+	res.render('create');
+}
